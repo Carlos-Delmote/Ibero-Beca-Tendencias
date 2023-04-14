@@ -1,29 +1,34 @@
 #Librerías
 import pandas as pd
 import matplotlib.pyplot as plt
+import numpy as np
+import scipy as sp
+import sympy as smp
+from scipy.integrate import quad
+from scipy.integrate import cumulative_trapezoid
 
 #Lectura de datos SQL
-data = pd.read_csv('Measurements1.csv')
-#Delimitar la gráfica a las pruebas reales e ignorar el resto de datos usado para pruebas
-Idata = data[6 < data.index]
-Pdata = Idata[ Idata.index < 62 ]
+data = pd.read_csv('Final_Measurements.csv')
 #Diferencial de temperatura
-DTemp = Pdata.HTemp - Pdata.LTemp
+DTemp = data.htemp - data.ltemp
 
 #Gráfica de datos experimentales
-x = Pdata.Time
-y = Pdata.Voltage * 100
+x = data.time
+y = data.voltage * 100
 #El Coeficiente Seebeck del cobre es 0.0035
-y2 = DTemp * 0.0035 * 100
+y2 = DTemp * 0.32
 z = DTemp
-plt.plot(x, y)
+z2 = data.htemp
+z3 = data.ltemp
+plt.plot(x, y, color = 'black')
+plt.plot(x, y2, color = 'orange')
 plt.plot(x, z)
+
 #Valor teórico
 plt.plot(x,y2)
-plt.title("Al amanecer")
 plt.xlabel("Time")
 plt.ylabel("Voltaje en V x 10^2 \n" + "Temperatura en °C")
-plt.legend(["Voltaje (Vx10^2)", "Diferencial de temperatura (°C)", "Voltaje teórico (Vx10^2)"])
+plt.legend(["Voltaje (Vx10^2)", "Voltaje teórico (Vx10^2)", "Diferencial de temperatura (°C)"])
 plt.show()
 
 #Notas
