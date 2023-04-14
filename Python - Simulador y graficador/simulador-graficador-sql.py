@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import sqlite3
 
 #seleccione el test
-test = '2'
+test = '110'
 
 #obtener el nombre de la prueba
 queryName = "SELECT Name FROM Test where Test=" + test
@@ -16,7 +16,7 @@ for name in names[0]:
     a=0
 
 #obtener datos de la prueba
-query = "SELECT Voltage*100 as Voltaje, HTemp-LTemp as Dif_Temp, (HTemp-LTemp)*0.35 as V_Teorico FROM Measurements where Test=" + test
+query = "SELECT Voltage*100 as Voltaje, HTemp-LTemp as Dif_Temp, (HTemp-LTemp)*0.35 as V_Teorico    FROM Measurements where Test=" + test
 
 connM = sqlite3.connect('Seebeck.db') 
 m = connM.cursor()
